@@ -6,11 +6,28 @@ function App() {
   const newText = 'and something from App';
 
   const [messageList, setMessageList] = useState([]);
+  const [count, setCount] = useState(0);
+
+  const updateCount = () => {
+    setCount(count + 1);
+  }
 
   const updateMessageList = (event) => {
     event.preventDefault();
-    setMessageList([...messageList, {"author": event.target.author.value, "text": event.target.text.value}]);
-  }
+    if (event.target.author.value != 'BOT') {
+      setMessageList([...messageList, {"id": count, "author": event.target.author.value, "text": event.target.text.value}]);
+      updateCount();
+    } else {
+      alert('Недопустимое имя');
+    };
+  };
+
+  useEffect(() => {
+    if (messageList.length != 0 && messageList.slice(-1)[0].author != 'BOT'){
+      setMessageList([...messageList, {"id": count, "author": "BOT", "text": "Ваше обращение принято"}]);
+      updateCount();
+    }
+  }, [messageList]);
 
   return (
     <>
@@ -18,8 +35,8 @@ function App() {
         <div>
           {messageList.map((item) => {
             return(
-              <div key={item.author}>
-                {item.text}
+              <div key={item.id}>
+                <strong>{item.author}:</strong> {item.text}
               </div>
             )
           })}
