@@ -47,3 +47,11 @@ form {
 .btn {
   margin-top: 20px;
 }
+
+.mesList {
+  color: teal;
+}
+
+.mesItem {
+  padding-bottom: 15px;
+}
