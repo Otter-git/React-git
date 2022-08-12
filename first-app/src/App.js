@@ -21,6 +21,7 @@ function App() {
     if (event.target.author.value != 'BOT') {
       setMessageList([...messageList, {"id": count, "author": event.target.author.value, "text": event.target.text.value}]);
       updateCount();
+      event.target.text.focus();
     } else {
       alert('Недопустимое имя');
     };
